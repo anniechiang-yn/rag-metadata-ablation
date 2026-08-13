@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "Decomposing a Metadata Layer: An Ablation Study on Conversational Retrieval"
+abstract: "A ten-configuration ablation study decomposing the contribution of a metadata layer to retrieval over a conversational corpus, with a Shapley decomposition of two mechanisms and a traced root cause for the single regression."
+authors:
+  - family-names: Chiang
+    given-names: Annie
+type: software
+version: 1.0.1
+doi: 10.5281/zenodo.21915438
+date-released: "2026-08-13"
+license: CC-BY-4.0
+repository-code: "https://github.com/anniechiang-yn/rag-metadata-ablation"
+keywords:
+  - retrieval-augmented generation
+  - information retrieval
+  - ablation study
+  - metadata
+  - evaluation
