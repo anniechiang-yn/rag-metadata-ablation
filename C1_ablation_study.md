@@ -24,7 +24,9 @@ It is written as an account of four decisions rather than as a results table, be
 | Metadata embedding | The status value and the annotation notes are prepended to the unit's text before it is embedded |
 | Relation expansion | Units listed in `related_segments` of the top-ranked results are pulled into the result set |
 
-**Embedding model.** bge-m3, served locally through Ollama, with a 6,000-character truncation limit on the embedded text.
+**Embedding model.** bge-m3, served locally through Ollama, with a 6,000-character truncation limit on the embedded text. Fifteen of the 47 units exceed that limit on their plain text and are truncated in every configuration, including the baseline.
+
+**Field coverage.** `notes` is populated on 47 of 47 units and `decision_status` on 46; `related_segments` on 3 and `prerequisites` on 2. The sparse fields matter for reading the results in section 6.
 
 ---
 
@@ -125,7 +127,11 @@ With ten questions the test has very little power. Three configurations reach p 
 
 ## 6. Decomposing the improvement
 
-Relation expansion contributes nothing, and the data show this twice: `J_expand_only` reproduces the baseline exactly, question by question, and `E_no_expand` reproduces the full system exactly, question by question. The mechanism can therefore be set aside, leaving two.
+Relation expansion contributes nothing, and the data show this twice: `J_expand_only` reproduces the baseline exactly, question by question, and `E_no_expand` reproduces the full system exactly, question by question.
+
+The reason is visible in the corpus rather than in the scores: `related_segments` is populated on 3 of 47 records. The mechanism had almost nothing to act on, so this is a null result about *this corpus*, not evidence that relation expansion is ineffective in general. Reporting it as the latter would be the more impressive claim and the wrong one.
+
+That leaves two mechanisms.
 
 Their contributions overlap, so neither the individual gains nor the marginal gains are a fair attribution on their own. A Shapley decomposition averages each mechanism's marginal contribution across both possible orderings of introduction:
 
@@ -176,7 +182,11 @@ Looking at what moved:
 
 Relevant units in bold. The full system gains 014_004 and loses two units that the baseline held at ranks four and five.
 
-**Truncation was the first hypothesis, and it is wrong.** Prepending metadata lengthens the embedded text, so a unit near the 6,000-character limit would lose original content and its vector would shift. Neither lost unit is anywhere near the limit: 064_000 runs to 3,479 characters plain and 3,529 with metadata; 014_038 to 2,194 and 2,237. The prefixes added 50 and 43 characters respectively. No content was truncated from either.
+**Truncation was the first hypothesis, and it is wrong.** Prepending metadata lengthens the embedded text, so a unit near the 6,000-character limit would lose original content and its vector would shift.
+
+The corpus statistics rule this out at the level of the whole corpus, not just this question. Fifteen of the 47 units exceed the truncation limit on their plain text alone, and the same fifteen exceed it once metadata is prepended. **The prefix pushes no additional unit over the limit.** Whatever the metadata changed, it did not change how much original text any unit lost.
+
+The two units lost on this question confirm it individually: 064_000 runs to 3,479 characters plain and 3,529 with metadata; 014_038 to 2,194 and 2,237. Both sit at well under 60% of the limit. The prefixes added 50 and 43 characters.
 
 The mechanism is marginal ranking instability. The two units lost sat at ranks four and five, immediately inside the cut-off. Prepending text to every document perturbs every vector, and where the similarity gap between rank five and rank six is smaller than that perturbation, the ordering flips. Nothing about the metadata made those units less relevant; they were close enough to the boundary that a change unrelated to their relevance was sufficient to move them across it.
 
@@ -192,7 +202,7 @@ One regression in ten questions is well within what boundary noise would produce
 
 **Established, within this corpus and test set:**
 
-- Relation expansion contributes nothing, shown twice and exactly.
+- Relation expansion contributes nothing on this corpus, shown twice and exactly. The field it depends on is populated on 3 of 47 records, so this is a null result about the corpus, not about the mechanism.
 - The improvement decomposes roughly 60/40 between query-side filtering and metadata embedding, with about a sixth of the work duplicated.
 - Within the embedding channel, free-text notes contribute about two and a half times as much as the status label.
 - Hard and soft filtering are indistinguishable once metadata is embedded.
