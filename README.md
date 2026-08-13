@@ -8,7 +8,15 @@ Adding the metadata layer raised Precision@5 from 0.300 to 0.420 and Recall@5 fr
 
 ## What it found
 
+**The improvement splits roughly 60/40.** A Shapley decomposition attributes 60.1% of the gain to using the status value to constrain the candidate set at query time, and 39.9% to prepending status and annotation text to the embedded document. The two mechanisms duplicate about a sixth of each other's work.
+
+**The controlled vocabulary is a filtering vocabulary, not an enrichment vocabulary.** Within the embedding channel, free-text notes contribute about two and a half times as much as the status label. The label earns its place by filtering. This has a direct design consequence: scope notes need to state boundary rules precise enough to answer "which records are in this state", rather than descriptions intended to enrich indexed text.
+
 **Relation expansion contributes nothing on this corpus,** shown twice and exactly: the expansion-only configuration reproduces the baseline question by question, and switching expansion off in the full system changes no result. The field it depends on is populated on 3 of 47 records, so this is a null result about the corpus rather than about the mechanism — reporting it as the latter would be the more impressive claim and the wrong one.
+
+**Hard and soft filtering are indistinguishable once metadata is embedded,** though they differ when applied to plain-text embeddings. Reported as a hypothesis worth testing at scale, not as a result.
+
+**One question regressed, and the first explanation for it was wrong.** The regression was initially attributed to text truncation. The corpus statistics exclude that: prepending metadata pushes no additional unit over the truncation limit, and both lost units sit at under 60% of it. The mechanism is a boundary effect at the rank-five cut-off, and the trace that established it is in [section 7](C1_ablation_study.md#7-the-one-regression).
 
 ## What it does not establish
 
