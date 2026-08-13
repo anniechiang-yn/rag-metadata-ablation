@@ -1,0 +1,36 @@
+# Test set — the questions are personal material
+queries.json
+
+# Personal data and source corpus — never track
+retrieval_corpus.json
+conversations.json
+memories.json
+conversation_labels.json
+*_annotation*.csv
+*_annotation*.txt
+frozen_corpus/
+segmented_corpus/
+parsed_conversations/
+projects/
+
+# Recorded results — contain question text and relevance judgements
+ablation_results.json
+ablation_table.md
+
+# Generated output and caches
+embed_cache.json
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Credentials
+.env
+*.key
+*.pem
+credentials*
+secrets*
+
+# Operating system
+.DS_Store
+Thumbs.db
