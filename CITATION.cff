@@ -5,7 +5,7 @@ abstract: "A ten-configuration ablation study decomposing the contribution of a 
 authors:
   - family-names: Chiang
     given-names: Annie
-type: software
+type: dataset
 version: 1.0.1
 doi: 10.5281/zenodo.21915438
 date-released: "2026-08-13"
