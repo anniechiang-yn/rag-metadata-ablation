@@ -1,0 +1,7 @@
+{
+  "_comment": "Test set format. Each key is a query string; each value lists the segment IDs judged relevant to it. The intent rules in detect_intent() match on Chinese keywords in the query string, so queries written in another language will not trigger them. The real test set used in the study is withheld: the questions are the author's own career decisions and the corpus contains personal data.",
+
+  "Q1 我已經決定要學什麼？": ["001_000"],
+  "Q2 我放棄了哪些方向？": ["002_000", "002_003", "005_011"],
+  "Q3 為什麼需要這項條件？": ["003_001"]
+}
