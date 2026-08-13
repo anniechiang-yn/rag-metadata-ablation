@@ -1,6 +1,6 @@
 # RAG Metadata Ablation
 
-[![DOI](https://zenodo.org/badge/1332849888.svg)](https://doi.org/10.5281/zenodo.21915438)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21915438.svg)](https://doi.org/10.5281/zenodo.21915438)
 
 A ten-configuration ablation study decomposing what a hand-built metadata layer contributes to retrieval over a conversational corpus.
 
