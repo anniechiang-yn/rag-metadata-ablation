@@ -1,6 +1,7 @@
 # RAG Metadata Ablation
 
 [![DOI](https://zenodo.org/badge/1332849888.svg)](https://doi.org/10.5281/zenodo.21915438)
+
 A ten-configuration ablation study decomposing what a hand-built metadata layer contributes to retrieval over a conversational corpus.
 
 Adding the metadata layer raised Precision@5 from 0.300 to 0.420 and Recall@5 from 0.505 to 0.812. Those figures are not the point. The study exists to answer which part of the layer did the work, whether the parts are redundant, and what the numbers cannot be used to claim.
